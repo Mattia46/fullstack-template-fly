@@ -1,0 +1,28 @@
+# fly.toml app configuration file generated for cs-social on 2023-04-26T19:15:14+01:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "cs-social"
+primary_region = "ams"
+
+[env]
+  DATABASE_URL = "file:/data/sqlite.db"
+  PORT = "8080"
+
+[[mounts]]
+  source = "data"
+  destination = "/data"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+
+[checks]
+  [checks.alive]
+    type = "tcp"
+    interval = "15s"
+    timeout = "2s"
+    grace_period = "5s"
